@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ATGuser;
 use Validator, Redirect, Response;
+use AppTraits\ExampleCode;
 
 class WebServicesController extends Controller
 {
@@ -24,11 +25,7 @@ class WebServicesController extends Controller
             } else if (count($post1) > 0) {
                 return response()->json(array('mess' => 'Name exist', 'status' => false));
             } else {
-                $atguser = new ATGuser();
-                $atguser->name = $request->input('name');
-                $atguser->email = $request->input('email');
-                $atguser->pincode = $request->input('pincode');
-                $atguser->save();
+                $this->savedata($request);
                 return response()->json(array('mess' => 'Data Stored', 'status' => true));
             }
         }else{
